@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Showcase — Built by Makers</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0f1a;--surface:#131927;--card:#1a2236;--card-hover:#1f2a42;
+  --accent:#6c5ce7;--accent2:#a29bfe;--accent3:#00cec9;
+  --text:#e2e8f0;--text-dim:#94a3b8;--text-bright:#f8fafc;
+  --radius:16px;--shadow:0 4px 24px rgba(0,0,0,.4);
+}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+a{color:var(--accent2);text-decoration:none}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(11,15,26,.85);backdrop-filter:blur(12px);z-index:100;border-bottom:1px solid rgba(255,255,255,.06)}
+nav .logo{font-weight:800;font-size:1.25rem;color:var(--text-bright);letter-spacing:-.5px}
+nav .logo span{color:var(--accent)}
+nav ul{list-style:none;display:flex;gap:1.5rem}
+nav ul a{color:var(--text-dim);font-size:.9rem;font-weight:500;transition:color .2s}
+nav ul a:hover{color:var(--accent2)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(108,92,231,.15),transparent 70%);top:-100px;right:-100px;pointer-events:none}
+.hero::after{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(0,206,201,.1),transparent 70%);bottom:-80px;left:-80px;pointer-events:none}
+.hero h1{font-size:clamp(2.2rem,5vw,4rem);font-weight:800;line-height:1.15;color:var(--text-bright);max-width:800px;letter-spacing:-.5px}
+.hero h1 .highlight{background:linear-gradient(135deg,var(--accent),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{margin-top:1.25rem;font-size:1.15rem;color:var(--text-dim);max-width:560px}
+.hero .cta-row{margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.75rem;border-radius:50px;font-weight:600;font-size:.95rem;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn-primary{background:linear-gradient(135deg,var(--accent),#8b5cf6);color:#fff;box-shadow:0 4px 20px rgba(108,92,231,.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(108,92,231,.5)}
+.btn-outline{background:transparent;color:var(--accent2);border:1.5px solid var(--accent2)}
+.btn-outline:hover{background:rgba(162,155,254,.1);transform:translateY(-2px)}
+
+/* SECTION */
+section{padding:5rem 2rem}
+.section-label{text-transform:uppercase;font-size:.75rem;font-weight:700;letter-spacing:2px;color:var(--accent3);margin-bottom:.5rem}
+.section-title{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;color:var(--text-bright);margin-bottom:.5rem}
+.section-desc{color:var(--text-dim);max-width:540px;margin-bottom:2.5rem}
+
+/* PROJECTS GRID */
+.projects{background:var(--surface)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem;max-width:1200px;margin:0 auto}
+.card{background:var(--card);border-radius:var(--radius);padding:1.75rem;display:flex;flex-direction:column;gap:1rem;border:1px solid rgba(255,255,255,.05);transition:transform .3s,box-shadow .3s,border-color .3s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:rgba(108,92,231,.3)}
+.card-header{display:flex;justify-content:space-between;align-items:flex-start}
+.card-header h3{font-size:1.15rem;font-weight:700;color:var(--text-bright)}
+.tag{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:.3rem .7rem;border-radius:50px}
+.tag-prototype{background:rgba(108,92,231,.2);color:var(--accent2)}
+.tag-side{background:rgba(0,206,201,.15);color:var(--accent3)}
+.tag-company{background:rgba(253,203,110,.15);color:#fdcb6e}
+.card .builder{font-size:.85rem;color:var(--text-dim)}
+.card .desc{font-size:.9rem;color:var(--text);flex:1}
+.card .mental-model{background:rgba(108,92,231,.08);border-left:3px solid var(--accent);padding:.6rem .9rem;border-radius:0 8px 8px 0;font-size:.82rem;color:var(--accent2)}
+.card .mental-model strong{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:.2rem;color:var(--text-dim)}
+.card .tip{font-style:italic;font-size:.85rem;color:var(--text-dim);border-top:1px solid rgba(255,255,255,.06);padding-top:.75rem}
+.card .tip::before{content:'"'}
+.card .tip::after{content:'"'}
+
+/* CTA */
+.cta-section{text-align:center;background:linear-gradient(135deg,rgba(108,92,231,.1),rgba(0,206,201,.08));border-top:1px solid rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.04)}
+.cta-section .section-title{margin-bottom:.75rem}
+.cta-section p{color:var(--text-dim);max-width:480px;margin:0 auto 2rem}
+
+/* FOOTER */
+footer{text-align:center;padding:2.5rem 2rem;color:var(--text-dim);font-size:.8rem;border-top:1px solid rgba(255,255,255,.04)}
+
+/* ANIMATIONS */
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.fade-in:nth-child(2){transition-delay:.1s}
+.fade-in:nth-child(3){transition-delay:.2s}
+.fade-in:nth-child(4){transition-delay:.3s}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  nav ul{display:none}
+  .grid{grid-template-columns:1fr}
+  section{padding:3.5rem 1.25rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">maker<span>hub</span></div>
+  <ul>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#submit">Submit</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <h1>See What Our <span class="highlight">Community Builders</span> Are Creating</h1>
+  <p>Real projects, real mental models, real advice — from makers who started exactly where you are now.</p>
+  <div class="cta-row">
+    <a href="#projects" class="btn btn-primary">Explore Projects</a>
+    <a href="#submit" class="btn btn-outline">Share Yours</a>
+  </div>
+</section>
+
+<section class="projects" id="projects">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="section-label">Featured Work</div>
+    <div class="section-title">Projects from the Community</div>
+    <p class="section-desc">Prototypes, side hustles, and company tools — built by people learning and shipping in public.</p>
+  </div>
+  <div class="grid">
+
+    <div class="card fade-in">
+      <div class="card-header">
+        <h3>FocusFlow</h3>
+        <span class="tag tag-side">Side Project</span>
+      </div>
+      <span class="builder">by Lena Mori</span>
+      <p class="desc">A minimal Pomodoro app that adapts session lengths based on your energy levels throughout the day. Built with vanilla JS and localStorage.</p>
+      <div class="mental-model"><strong>Mental Model</strong>Parkinson's Law — work expands to fill the time available. So I let the timer shrink when energy is high.</div>
+      <p class="tip">Ship the ugly version first. My v1 was embarrassing, but it taught me what users actually wanted.</p>
+    </div>
+
+    <div class="card fade-in">
+      <div class="card-header">
+        <h3>SupplyPulse</h3>
+        <span class="tag tag-company">Company</span>
+      </div>
+      <span class="builder">by Marco Delgado</span>
+      <p class="desc">Internal dashboard that visualizes supply-chain bottlenecks in real time. Reduced our team's response time by 40%.</p>
+      <div class="mental-model"><strong>Mental Model</strong>Theory of Constraints — find the one bottleneck, fix it, then find the next one. Don't optimize everything at once.</div>
+      <p class="tip">Talk to the warehouse team before writing a single line of code. Domain knowledge > technical skill.</p>
+    </div>
+
+    <div class="card fade-in">
+      <div class="card-header">
+        <h3>TinyMVP</h3>
+        <span class="tag tag-prototype">Prototype</span>
+      </div>
+      <span class="builder">by Aisha Patel</span>
+      <p class="desc">A no-code landing page generator that creates a waitlist + Stripe checkout in under 5 minutes. Still in prototype, 200 signups so far.</p>
+      <div class="mental-model"><strong>Mental Model</strong>The Mom Test — don't ask "would you use this?" Ask "how do you solve this problem today?" and watch what they do.</div>
+      <p class="tip">Charge from day one, even $1. It filters out people who'd never pay and gives you real signal.</p>
+    </div>
+
+    <div class="card fade-in">
+      <div class="card-header">
+        <h3>RetroBoard</h3>
+        <span class="tag tag-side">Side Project</span>
+      </div>
+      <span class="builder">by Jonas Ekström</span>
+      <p class="desc">A real-time retrospective tool for remote teams with anonymous voting, action tracking, and Slack integration.</p>
+      <div class="mental-model"><strong>Mental Model</strong>Jobs to Be Done — people don't want a retro tool, they want their team to improve every sprint. Design for the outcome.</div>
+      <p class="tip">Build for your own team first. If it solves your problem well, there are 1,000 teams with the same one.</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="cta-section" id="submit">
+  <div class="section-label">Your Turn</div>
+  <div class="section-title">Submit Your Project</div>
+  <p>Share what you're building, the mental models behind it, and a tip for others on the same path.</p>
+  <a href="#" class="btn btn-primary" onclick="alert('Submission form coming soon!');return false">Submit Your Project →</a>
+</section>
+
+<footer>
+  <p>makerhub — built by the community, for the community. &copy; 2026</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
