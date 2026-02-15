@@ -13,7 +13,7 @@
   --radius:16px;--shadow:0 4px 24px rgba(0,0,0,.4);
 }
 html{scroll-behavior:smooth}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;word-wrap:break-word;overflow-wrap:break-word}
 a{color:var(--accent2);text-decoration:none}
 
 /* NAV */
@@ -87,6 +87,12 @@ nav .back:hover{color:var(--accent2)}
 .fade-in.visible{opacity:1;transform:translateY(0)}
 
 @media(max-width:640px){
+  .project-hero,.detail-section{padding:6rem 1rem 2rem}
+  .mental-model-box{padding:1.25rem}
+  .mm-steps .mm-step{padding:.4rem .5rem}
+  .timeline{padding-left:1.5rem}
+  nav{padding:1rem 1rem}
+  .project-hero~*,.detail-section~*{max-width:100%;padding-left:1rem;padding-right:1rem}
   .tips-grid{grid-template-columns:1fr}
   .bio-card{flex-direction:column;text-align:center}
   .cta-row{justify-content:center}
