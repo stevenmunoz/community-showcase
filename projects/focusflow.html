@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FocusFlow — Community Showcase</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0f1a;--surface:#131927;--card:#1a2236;--card-hover:#1f2a42;
+  --accent:#6c5ce7;--accent2:#a29bfe;--accent3:#00cec9;
+  --text:#e2e8f0;--text-dim:#94a3b8;--text-bright:#f8fafc;
+  --radius:16px;--shadow:0 4px 24px rgba(0,0,0,.4);
+}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+a{color:var(--accent2);text-decoration:none}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(11,15,26,.85);backdrop-filter:blur(12px);z-index:100;border-bottom:1px solid rgba(255,255,255,.06)}
+nav .logo{font-weight:800;font-size:1.25rem;color:var(--text-bright);letter-spacing:-.5px}
+nav .logo span{color:var(--accent)}
+nav .back{color:var(--text-dim);font-size:.9rem;font-weight:500;transition:color .2s;display:inline-flex;align-items:center;gap:.4rem}
+nav .back:hover{color:var(--accent2)}
+
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.75rem;border-radius:50px;font-weight:600;font-size:.95rem;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn-primary{background:linear-gradient(135deg,var(--accent),#8b5cf6);color:#fff;box-shadow:0 4px 20px rgba(108,92,231,.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(108,92,231,.5)}
+.btn-outline{background:transparent;color:var(--accent2);border:1.5px solid var(--accent2)}
+.btn-outline:hover{background:rgba(162,155,254,.1);transform:translateY(-2px)}
+
+/* HERO */
+.project-hero{padding:8rem 2rem 4rem;max-width:800px;margin:0 auto;position:relative}
+.project-hero::before{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(108,92,231,.12),transparent 70%);top:-100px;right:-200px;pointer-events:none}
+.tag{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:.3rem .7rem;border-radius:50px}
+.tag-prototype{background:rgba(108,92,231,.2);color:var(--accent2)}
+.tag-side{background:rgba(0,206,201,.15);color:var(--accent3)}
+.tag-company{background:rgba(253,203,110,.15);color:#fdcb6e}
+.project-hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:800;color:var(--text-bright);margin:.75rem 0 .5rem;letter-spacing:-.5px}
+.project-hero .builder{color:var(--text-dim);font-size:1.05rem;margin-bottom:1.5rem}
+.project-hero .desc{font-size:1.1rem;line-height:1.7;color:var(--text)}
+
+/* SECTIONS */
+.detail-section{max-width:800px;margin:0 auto;padding:3rem 2rem}
+.detail-section h2{font-size:1.5rem;font-weight:800;color:var(--text-bright);margin-bottom:1.5rem;display:flex;align-items:center;gap:.6rem}
+.detail-section h2 .icon{font-size:1.3rem}
+
+/* MENTAL MODEL */
+.mental-model-box{background:var(--surface);border:1px solid rgba(108,92,231,.2);border-radius:var(--radius);padding:2rem;position:relative;overflow:hidden}
+.mental-model-box::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,var(--accent),var(--accent3))}
+.mental-model-box .mm-title{font-size:1.3rem;font-weight:800;color:var(--accent2);margin-bottom:.25rem}
+.mental-model-box .mm-subtitle{font-size:.95rem;color:var(--text-dim);margin-bottom:1.25rem;font-style:italic}
+.mental-model-box .mm-detail{color:var(--text);line-height:1.7;margin-bottom:1.5rem}
+.mm-steps{display:flex;flex-direction:column;gap:.75rem}
+.mm-step{display:flex;align-items:flex-start;gap:.75rem;padding:.6rem .8rem;background:rgba(108,92,231,.06);border-radius:10px}
+.mm-step .step-num{min-width:28px;height:28px;background:linear-gradient(135deg,var(--accent),var(--accent3));border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.75rem;color:#fff}
+.mm-step .step-text{font-size:.9rem;color:var(--text);padding-top:3px}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent3))}
+.timeline-item{position:relative;margin-bottom:2rem}
+.timeline-item:last-child{margin-bottom:0}
+.timeline-item .dot{position:absolute;left:-2rem;top:6px;width:12px;height:12px;background:var(--accent);border-radius:50%;border:2px solid var(--bg);z-index:1}
+.timeline-item h3{font-size:1.05rem;font-weight:700;color:var(--text-bright);margin-bottom:.35rem}
+.timeline-item p{font-size:.9rem;color:var(--text-dim);line-height:1.6}
+
+/* TIPS */
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
+.tip-card{background:var(--card);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);padding:1.5rem;transition:transform .3s,border-color .3s}
+.tip-card:hover{transform:translateY(-4px);border-color:rgba(108,92,231,.3)}
+.tip-card h3{font-size:1rem;font-weight:700;color:var(--accent2);margin-bottom:.5rem}
+.tip-card p{font-size:.9rem;color:var(--text-dim);line-height:1.6}
+
+/* BUILDER BIO */
+.bio-section{background:var(--surface);border-top:1px solid rgba(255,255,255,.04)}
+.bio-card{display:flex;align-items:center;gap:1.5rem;max-width:800px;margin:0 auto;padding:3rem 2rem}
+.bio-avatar{min-width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent3));display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:800;color:#fff}
+.bio-info h3{font-size:1.1rem;font-weight:700;color:var(--text-bright);margin-bottom:.35rem}
+.bio-info p{font-size:.9rem;color:var(--text-dim);line-height:1.5}
+
+/* CTA ROW */
+.cta-row{max-width:800px;margin:0 auto;padding:2rem 2rem 4rem;display:flex;gap:1rem;flex-wrap:wrap}
+
+/* ANIMATIONS */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:640px){
+  .tips-grid{grid-template-columns:1fr}
+  .bio-card{flex-direction:column;text-align:center}
+  .cta-row{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="logo">maker<span>hub</span></a>
+  <a href="../index.html" class="back">← Back to Projects</a>
+</nav>
+
+<section class="project-hero fade-in">
+  <span class="tag tag-side">Side Project</span>
+  <h1>FocusFlow</h1>
+  <p class="builder">by Lena Mori</p>
+  <p class="desc">FocusFlow reimagines the classic Pomodoro technique by making it adaptive. Instead of rigid 25-minute blocks, the app learns your energy patterns throughout the day and adjusts session lengths accordingly. When you're in a high-energy window, sessions stretch to maximize flow state. When energy dips, sessions shorten to maintain momentum without burnout. Built entirely with vanilla JavaScript and localStorage — no backend, no accounts, no complexity. Just open the tab and start working.</p>
+</section>
+
+<section class="detail-section fade-in">
+  <h2><span class="icon">🧠</span> Mental Model</h2>
+  <div class="mental-model-box">
+    <div class="mm-title">Parkinson's Law</div>
+    <div class="mm-subtitle">Work expands to fill the time available</div>
+    <p class="mm-detail">The core insight is simple: if you give yourself 2 hours for a task, it'll take 2 hours. Give yourself 45 minutes and you'll find a way. FocusFlow applies this by dynamically constraining time based on your energy. High energy? You get a longer runway to go deep. Low energy? Short bursts keep you productive without the drag.</p>
+    <div class="mm-steps">
+      <div class="mm-step"><div class="step-num">1</div><div class="step-text">Observe your energy patterns over a few days</div></div>
+      <div class="mm-step"><div class="step-num">2</div><div class="step-text">Map high/low periods to session lengths</div></div>
+      <div class="mm-step"><div class="step-num">3</div><div class="step-text">Let the constraint drive focus, not willpower</div></div>
+      <div class="mm-step"><div class="step-num">4</div><div class="step-text">Iterate based on completion rates</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section fade-in">
+  <h2><span class="icon">🚀</span> How I Started</h2>
+  <div class="timeline">
+    <div class="timeline-item"><div class="dot"></div><h3>Scratched my own itch</h3><p>I was using a standard Pomodoro app but kept overriding the timer. Some sessions felt too short, others too long. I realized the timer should adapt to me, not the other way around.</p></div>
+    <div class="timeline-item"><div class="dot"></div><h3>Paper prototype</h3><p>Drew out energy curves on paper and mapped them to timer lengths. Tested the concept manually for a week with phone alarms before writing any code.</p></div>
+    <div class="timeline-item"><div class="dot"></div><h3>Weekend MVP</h3><p>Built the first version in a weekend using vanilla JS. No frameworks, no build tools. Just an index.html and a script tag. It was ugly but functional.</p></div>
+    <div class="timeline-item"><div class="dot"></div><h3>Shared on Twitter</h3><p>Posted a screenshot and a short thread about adaptive timers. Got 40 likes and 12 DMs asking to try it. That was enough signal to keep going.</p></div>
+  </div>
+</section>
+
+<section class="detail-section fade-in">
+  <h2><span class="icon">💡</span> Tips &amp; Lessons Learned</h2>
+  <div class="tips-grid">
+    <div class="tip-card"><h3>Ship the ugly version first</h3><p>My v1 was embarrassing — Comic Sans header, misaligned buttons, the works. But it taught me what users actually wanted, which had nothing to do with aesthetics.</p></div>
+    <div class="tip-card"><h3>localStorage is underrated</h3><p>For solo tools, you don't need a database. localStorage gave me persistence with zero infrastructure. Users loved that there was no sign-up.</p></div>
+    <div class="tip-card"><h3>Measure completion, not time</h3><p>I almost built analytics for 'time spent.' Instead I tracked 'sessions completed vs planned.' Way more actionable and motivating for users.</p></div>
+    <div class="tip-card"><h3>Don't add features, remove friction</h3><p>Every feature request I got, I asked: 'What friction is this solving?' Half the time, removing a step was better than adding a button.</p></div>
+  </div>
+</section>
+
+<section class="bio-section fade-in">
+  <div class="bio-card">
+    <div class="bio-avatar">LM</div>
+    <div class="bio-info">
+      <h3>Lena Mori</h3>
+      <p>Lena is a frontend developer based in Tokyo who builds small, focused tools for personal productivity. She believes the best software is the kind you forget you're using.</p>
+    </div>
+  </div>
+</section>
+
+<div class="cta-row fade-in">
+  <a href="#" class="btn btn-primary" onclick="alert('Project link coming soon!');return false">View Project →</a>
+  <a href="#" class="btn btn-outline" onclick="alert('Connect feature coming soon!');return false">Connect with Builder</a>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

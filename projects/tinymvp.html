@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TinyMVP — Community Showcase</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0f1a;--surface:#131927;--card:#1a2236;--card-hover:#1f2a42;
+  --accent:#6c5ce7;--accent2:#a29bfe;--accent3:#00cec9;
+  --text:#e2e8f0;--text-dim:#94a3b8;--text-bright:#f8fafc;
+  --radius:16px;--shadow:0 4px 24px rgba(0,0,0,.4);
+}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+a{color:var(--accent2);text-decoration:none}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(11,15,26,.85);backdrop-filter:blur(12px);z-index:100;border-bottom:1px solid rgba(255,255,255,.06)}
+nav .logo{font-weight:800;font-size:1.25rem;color:var(--text-bright);letter-spacing:-.5px}
+nav .logo span{color:var(--accent)}
+nav .back{color:var(--text-dim);font-size:.9rem;font-weight:500;transition:color .2s;display:inline-flex;align-items:center;gap:.4rem}
+nav .back:hover{color:var(--accent2)}
+
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.75rem;border-radius:50px;font-weight:600;font-size:.95rem;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn-primary{background:linear-gradient(135deg,var(--accent),#8b5cf6);color:#fff;box-shadow:0 4px 20px rgba(108,92,231,.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(108,92,231,.5)}
+.btn-outline{background:transparent;color:var(--accent2);border:1.5px solid var(--accent2)}
+.btn-outline:hover{background:rgba(162,155,254,.1);transform:translateY(-2px)}
+
+/* HERO */
+.project-hero{padding:8rem 2rem 4rem;max-width:800px;margin:0 auto;position:relative}
+.project-hero::before{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(108,92,231,.12),transparent 70%);top:-100px;right:-200px;pointer-events:none}
+.tag{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:.3rem .7rem;border-radius:50px}
+.tag-prototype{background:rgba(108,92,231,.2);color:var(--accent2)}
+.tag-side{background:rgba(0,206,201,.15);color:var(--accent3)}
+.tag-company{background:rgba(253,203,110,.15);color:#fdcb6e}
+.project-hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:800;color:var(--text-bright);margin:.75rem 0 .5rem;letter-spacing:-.5px}
+.project-hero .builder{color:var(--text-dim);font-size:1.05rem;margin-bottom:1.5rem}
+.project-hero .desc{font-size:1.1rem;line-height:1.7;color:var(--text)}
+
+/* SECTIONS */
+.detail-section{max-width:800px;margin:0 auto;padding:3rem 2rem}
+.detail-section h2{font-size:1.5rem;font-weight:800;color:var(--text-bright);margin-bottom:1.5rem;display:flex;align-items:center;gap:.6rem}
+.detail-section h2 .icon{font-size:1.3rem}
+
+/* MENTAL MODEL */
+.mental-model-box{background:var(--surface);border:1px solid rgba(108,92,231,.2);border-radius:var(--radius);padding:2rem;position:relative;overflow:hidden}
+.mental-model-box::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,var(--accent),var(--accent3))}
+.mental-model-box .mm-title{font-size:1.3rem;font-weight:800;color:var(--accent2);margin-bottom:.25rem}
+.mental-model-box .mm-subtitle{font-size:.95rem;color:var(--text-dim);margin-bottom:1.25rem;font-style:italic}
+.mental-model-box .mm-detail{color:var(--text);line-height:1.7;margin-bottom:1.5rem}
+.mm-steps{display:flex;flex-direction:column;gap:.75rem}
+.mm-step{display:flex;align-items:flex-start;gap:.75rem;padding:.6rem .8rem;background:rgba(108,92,231,.06);border-radius:10px}
+.mm-step .step-num{min-width:28px;height:28px;background:linear-gradient(135deg,var(--accent),var(--accent3));border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.75rem;color:#fff}
+.mm-step .step-text{font-size:.9rem;color:var(--text);padding-top:3px}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent3))}
+.timeline-item{position:relative;margin-bottom:2rem}
+.timeline-item:last-child{margin-bottom:0}
+.timeline-item .dot{position:absolute;left:-2rem;top:6px;width:12px;height:12px;background:var(--accent);border-radius:50%;border:2px solid var(--bg);z-index:1}
+.timeline-item h3{font-size:1.05rem;font-weight:700;color:var(--text-bright);margin-bottom:.35rem}
+.timeline-item p{font-size:.9rem;color:var(--text-dim);line-height:1.6}
+
+/* TIPS */
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
+.tip-card{background:var(--card);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);padding:1.5rem;transition:transform .3s,border-color .3s}
+.tip-card:hover{transform:translateY(-4px);border-color:rgba(108,92,231,.3)}
+.tip-card h3{font-size:1rem;font-weight:700;color:var(--accent2);margin-bottom:.5rem}
+.tip-card p{font-size:.9rem;color:var(--text-dim);line-height:1.6}
+
+/* BUILDER BIO */
+.bio-section{background:var(--surface);border-top:1px solid rgba(255,255,255,.04)}
+.bio-card{display:flex;align-items:center;gap:1.5rem;max-width:800px;margin:0 auto;padding:3rem 2rem}
+.bio-avatar{min-width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent3));display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:800;color:#fff}
+.bio-info h3{font-size:1.1rem;font-weight:700;color:var(--text-bright);margin-bottom:.35rem}
+.bio-info p{font-size:.9rem;color:var(--text-dim);line-height:1.5}
+
+/* CTA ROW */
+.cta-row{max-width:800px;margin:0 auto;padding:2rem 2rem 4rem;display:flex;gap:1rem;flex-wrap:wrap}
+
+/* ANIMATIONS */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:640px){
+  .tips-grid{grid-template-columns:1fr}
+  .bio-card{flex-direction:column;text-align:center}
+  .cta-row{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="logo">maker<span>hub</span></a>
+  <a href="../index.html" class="back">← Back to Projects</a>
+</nav>
+
+<section class="project-hero fade-in">
+  <span class="tag tag-prototype">Prototype</span>
+  <h1>TinyMVP</h1>
+  <p class="builder">by Aisha Patel</p>
+  <p class="desc">TinyMVP lets anyone create a landing page with a waitlist and Stripe checkout in under 5 minutes — no code required. The idea came from watching indie hackers spend weeks building landing pages instead of validating ideas. TinyMVP strips it down to the essentials: a headline, a description, a price, and a payment button. That's it. Still in prototype with 200 signups, but the core thesis is proving out: the faster you can charge $1, the faster you know if your idea has legs.</p>
+</section>
+
+<section class="detail-section fade-in">
+  <h2><span class="icon">🧠</span> Mental Model</h2>
+  <div class="mental-model-box">
+    <div class="mm-title">The Mom Test</div>
+    <div class="mm-subtitle">Don't ask 'would you use this?' — watch what they do</div>
+    <p class="mm-detail">The Mom Test (from Rob Fitzpatrick's book) teaches that people will lie to be polite. 'Would you use this?' always gets a yes. Instead, ask about their current behavior: 'How do you solve this problem today?' and 'What have you tried?' The answers reveal real pain, not hypothetical interest. TinyMVP is built on this principle — instead of surveys, it gives people a way to put money down. That's the ultimate Mom Test.</p>
+    <div class="mm-steps">
+      <div class="mm-step"><div class="step-num">1</div><div class="step-text">Never ask 'would you use this?'</div></div>
+      <div class="mm-step"><div class="step-num">2</div><div class="step-text">Ask about current behavior and past attempts</div></div>
+      <div class="mm-step"><div class="step-num">3</div><div class="step-text">Look for money or time already being spent</div></div>
+      <div class="mm-step"><div class="step-num">4</div><div class="step-text">Build the smallest thing that tests willingness to pay</div></div>
+      <div class="mm-step"><div class="step-num">5</div><div class="step-text">Let actions speak louder than words</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section fade-in">
+  <h2><span class="icon">🚀</span> How I Started</h2>
+  <div class="timeline">
+    <div class="timeline-item"><div class="dot"></div><h3>Noticed the pattern</h3><p>In every indie hacker community, the same post: 'I spent 3 weeks on my landing page.' Meanwhile, the idea was untested. I thought: what if the landing page took 5 minutes?</p></div>
+    <div class="timeline-item"><div class="dot"></div><h3>Built for one person</h3><p>A friend had a SaaS idea. I built her a one-page site with a Stripe button in an afternoon. She got 3 paying customers in 48 hours. That was the signal.</p></div>
+    <div class="timeline-item"><div class="dot"></div><h3>Made it repeatable</h3><p>Turned the one-off into a template system. Pick a layout, fill in 4 fields, connect Stripe, deploy. Under 5 minutes for anyone.</p></div>
+    <div class="timeline-item"><div class="dot"></div><h3>Shared in communities</h3><p>Posted in 3 indie hacker Discord servers. 200 signups in the first week. Most valuable feedback: people wanted custom domains, which I hadn't even considered.</p></div>
+  </div>
+</section>
+
+<section class="detail-section fade-in">
+  <h2><span class="icon">💡</span> Tips &amp; Lessons Learned</h2>
+  <div class="tips-grid">
+    <div class="tip-card"><h3>Charge from day one</h3><p>Even $1 filters out people who'd never pay. Free users give you vanity metrics. Paying users give you real signal. Charge from day one.</p></div>
+    <div class="tip-card"><h3>Your landing page is your MVP</h3><p>Don't build the product, then build a landing page for it. The landing page IS the MVP. If people won't sign up for the page, they won't use the product.</p></div>
+    <div class="tip-card"><h3>Constraints breed creativity</h3><p>I limited TinyMVP to 4 input fields on purpose. Every field I removed forced a clearer value proposition from the user.</p></div>
+    <div class="tip-card"><h3>Community distribution > SEO</h3><p>For early-stage projects, posting in 3 relevant communities beats months of SEO work. Go where your users already hang out.</p></div>
+  </div>
+</section>
+
+<section class="bio-section fade-in">
+  <div class="bio-card">
+    <div class="bio-avatar">AP</div>
+    <div class="bio-info">
+      <h3>Aisha Patel</h3>
+      <p>Aisha is a product designer and indie hacker based in London. She's obsessed with reducing the time between idea and first dollar.</p>
+    </div>
+  </div>
+</section>
+
+<div class="cta-row fade-in">
+  <a href="#" class="btn btn-primary" onclick="alert('Project link coming soon!');return false">View Project →</a>
+  <a href="#" class="btn btn-outline" onclick="alert('Connect feature coming soon!');return false">Connect with Builder</a>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
